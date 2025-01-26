@@ -1,4 +1,3 @@
-version: '3'
 services:
   db:
     image: mongo:latest
@@ -9,5 +8,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - ./data:/data/db
+      - ./init.js:/docker-entrypoint-initdb.d/init.js  # Подключение скрипта инициализации
     ports:
       - 27017:27017
