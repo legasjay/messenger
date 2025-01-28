@@ -1,8 +1,7 @@
-package com.olegandreevich.messenger.servicies;
+package com.olegandreevich.messenger.servicies.user;
 
 import com.olegandreevich.messenger.entities.user.MyUser;
-import com.olegandreevich.messenger.repositories.MyUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.olegandreevich.messenger.repositories.user.MyUserRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
