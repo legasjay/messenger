@@ -1,7 +1,8 @@
-package com.olegandreevich.messenger.controllers;
+package com.olegandreevich.messenger.controllers.user;
 
 import com.olegandreevich.messenger.entities.user.MyUser;
-import com.olegandreevich.messenger.servicies.MyUserService;
+
+import com.olegandreevich.messenger.servicies.user.MyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
