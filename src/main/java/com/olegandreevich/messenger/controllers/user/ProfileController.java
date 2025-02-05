@@ -3,15 +3,16 @@ package com.olegandreevich.messenger.controllers.user;
 
 import com.olegandreevich.messenger.entities.user.Profile;
 import com.olegandreevich.messenger.servicies.user.ProfileService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/profiles")
+@RequestMapping("api/profiles")
 public class ProfileController {
 
     private final ProfileService profileService;
@@ -21,45 +22,37 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
-    @GetMapping
-    public List<Profile> getAllProfiles() {
-        return profileService.findAllProfiles();
-    }
-
     @PostMapping
-    public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
-        try {
-            Profile createdProfile = profileService.createProfile(profile);
-            return new ResponseEntity<>(createdProfile, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public Mono<ResponseEntity<Profile>> createProfile(@RequestBody Profile profile) {
+        return profileService.createProfile(profile)
+                .map(savedProfile -> ResponseEntity.status(HttpStatus.CREATED).body(savedProfile))
+                .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Profile> getProfileById(@PathVariable("id") String id) {
-        return profileService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Mono<ResponseEntity<Profile>> getProfileById(@PathVariable String id) {
+        return profileService.getProfileById(id)
+                .map(profile -> ResponseEntity.ok(profile))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @Operation(summary = "Удаление профиля", description = "Удаляет профиль по указанному идентификатору.")
+    @GetMapping
+    public Flux<Profile> getAllProfiles() {
+        return profileService.getAllProfiles();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Profile> updateProfile(@PathVariable("id") String id, @RequestBody Profile profile) {
-        try {
-            Profile updatedProfile = profileService.updateProfile(id, profile);
-            return new ResponseEntity<>(updatedProfile, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public Mono<ResponseEntity<Profile>> updateProfile(@PathVariable String id, @RequestBody Profile profile) {
+        return profileService.updateProfile(id, profile)
+                .map(updatedProfile -> ResponseEntity.ok(updatedProfile))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProfile(@PathVariable("id") String id) {
-        try {
-            profileService.deleteProfile(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public Mono<ResponseEntity<Void>> deleteProfile(@PathVariable String id) {
+        return profileService.deleteProfile(id)
+                .<ResponseEntity<Void>>then(Mono.just(ResponseEntity.noContent().build()))
+                .onErrorReturn(ResponseEntity.notFound().build());
     }
 }

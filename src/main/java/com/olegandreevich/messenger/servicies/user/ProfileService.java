@@ -3,10 +3,20 @@ package com.olegandreevich.messenger.servicies.user;
 import com.olegandreevich.messenger.entities.user.Profile;
 import com.olegandreevich.messenger.repositories.user.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class ProfileService {
@@ -18,61 +28,32 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
-    public List<Profile> findAllProfiles() {
-        return profileRepository.findAll();
+    public Mono<Profile> createProfile(Profile profile) {
+        return profileRepository.save(profile);
     }
 
-    public Optional<Profile> findById(String id) {
+    public Mono<Profile> getProfileById(String id) {
         return profileRepository.findById(id);
     }
 
-    public Profile saveProfile(Profile profile) {
-        return profileRepository.save(profile);
+    public Flux<Profile> getAllProfiles() {
+        return profileRepository.findAll();
     }
 
-    public void deleteProfileById(String id) {
-        profileRepository.deleteById(id);
+    public Mono<Profile> updateProfile(String id, Profile profile) {
+        return profileRepository.findById(id)
+                .flatMap(existingProfile -> {
+                    existingProfile.setFirstName(profile.getFirstName());
+                    existingProfile.setLastName(profile.getLastName());
+                    existingProfile.setBirthDate(profile.getBirthDate());
+                    existingProfile.setAvatar(profile.getAvatar());
+                    existingProfile.setDescription(profile.getDescription());
+                    existingProfile.setUserId(profile.getUserId());
+                    return profileRepository.save(existingProfile);
+                });
     }
 
-    public boolean existsById(String id) {
-        return profileRepository.existsById(id);
-    }
-
-    public long count() {
-        return profileRepository.count();
-    }
-
-    // Метод для создания профиля с проверкой существования пользователя
-    public Profile createProfile(Profile profile) throws Exception {
-        if (existsById(profile.getId())) {
-            throw new Exception("Профиль с таким ID уже существует");
-        }
-        return profileRepository.save(profile);
-    }
-
-    // Метод для обновления профиля с проверками
-    public Profile updateProfile(String id, Profile profileDetails) throws Exception {
-        Optional<Profile> existingProfile = findById(id);
-        if (existingProfile.isEmpty()) {
-            throw new Exception("Профиль с указанным ID не найден");
-        }
-
-        Profile existingProfileObj = existingProfile.get();
-        existingProfileObj.setFirstName(profileDetails.getFirstName());
-        existingProfileObj.setLastName(profileDetails.getLastName());
-        existingProfileObj.setBirthDate(profileDetails.getBirthDate());
-        existingProfileObj.setAvatar(profileDetails.getAvatar());
-        existingProfileObj.setDescription(profileDetails.getDescription());
-        existingProfileObj.setUserId(profileDetails.getUserId());
-
-        return profileRepository.save(existingProfileObj);
-    }
-
-    // Метод для удаления профиля с проверкой его существования
-    public void deleteProfile(String id) throws Exception {
-        if (!existsById(id)) {
-            throw new Exception("Профиль с указанным ID не найден");
-        }
-        profileRepository.deleteById(id);
+    public Mono<Void> deleteProfile(String id) {
+        return profileRepository.deleteById(id);
     }
 }
