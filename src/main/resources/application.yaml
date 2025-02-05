@@ -10,8 +10,8 @@ spring:
       host: localhost
       port: 27017
       database: messenger_db
-      username: messenger_user
-      password: password
+      username: root
+      password: root
 
 
 server:

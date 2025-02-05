@@ -1,9 +1,11 @@
 package com.olegandreevich.messenger.entities.chats;
 
+import com.olegandreevich.messenger.entities.enums.MessageType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.awt.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -13,11 +15,11 @@ public class Message {
     private String id;
     private String chatId; // Идентификатор чата, в рамках которого отправлено сообщение
     private String senderId; // Идентификатор отправителя
-    private String content; // Содержимое сообщения (текст, ссылка на файл и т.д.)
-    private TrayIcon.MessageType type; // Тип сообщения (TEXT, IMAGE, FILE и т.д.)
-    private LocalDateTime sentAt; // Время отправки сообщения
-    private boolean read; // Прочитано ли сообщение получателями
+    private Object content; // Универсальное содержимое сообщения (текст, ссылки на файлы и т.д.)
+    private MessageType type; // Тип сообщения (создай свой enum или класс для типов сообщений)
+    private Instant sentAt; // Время отправки сообщения
     private Map<String, Boolean> readStatuses; // Карта статусов прочтения для каждого участника чата
+    private String quotedMessageId; // Идентификатор цитируемого сообщения
 
     // Конструкторы, геттеры и сеттеры
 }

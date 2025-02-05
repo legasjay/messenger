@@ -3,44 +3,46 @@ package com.olegandreevich.messenger.servicies.user;
 import com.olegandreevich.messenger.entities.user.MyUser;
 import com.olegandreevich.messenger.repositories.user.MyUserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 public class MyUserService {
 
-    private final MyUserRepository myUserRepository;
+    private final MyUserRepository userRepository;
 
-    public MyUserService(MyUserRepository myUserRepository) {
-        this.myUserRepository = myUserRepository;
+    public MyUserService(MyUserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public Flux<MyUser> getAllUsers() {
-        return myUserRepository.findAll();
+    @Transactional(readOnly = true)
+    public Flux<MyUser> findAllUsers() {
+        return userRepository.findAll();
     }
 
-    public Mono<MyUser> getUserById(String id) {
-        return myUserRepository.findById(id);
+    @Transactional(readOnly = true)
+    public Mono<MyUser> findUserById(String id) {
+        return userRepository.findById(id);
     }
 
-    public Mono<MyUser> createUser(MyUser user) {
-        return myUserRepository.save(user);
+    @Transactional(readOnly = true)
+    public Mono<MyUser> findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    public Mono<Void> deleteUser(String id) {
-        return myUserRepository.deleteById(id);
+    @Transactional(readOnly = true)
+    public Mono<MyUser> findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
-    public Mono<MyUser> updateUser(String id, MyUser updatedUser) {
-        return myUserRepository.findById(id)
-                .flatMap(existingUser -> {
-                    existingUser.setEmail(updatedUser.getEmail());
-                    existingUser.setPassword(updatedUser.getPassword()); // Важно: нужно обновлять только нужные поля!
-                    return myUserRepository.save(existingUser);
-                });
+    @Transactional
+    public Mono<MyUser> saveUser(MyUser user) {
+        return userRepository.save(user);
     }
 
-    public Mono<MyUser> findByUsername(String username) {
-        return myUserRepository.findByUsername(username);
+    @Transactional
+    public Mono<Void> deleteUserById(String id) {
+        return userRepository.deleteById(id);
     }
 }
