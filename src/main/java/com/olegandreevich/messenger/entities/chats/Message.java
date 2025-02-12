@@ -22,4 +22,68 @@ public class Message {
     private String quotedMessageId; // Идентификатор цитируемого сообщения
 
     // Конструкторы, геттеры и сеттеры
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public Object getContent() {
+        return content;
+    }
+
+    public void setContent(Object content) {
+        this.content = content;
+    }
+
+    public MessageType getType() {
+        return type;
+    }
+
+    public void setType(MessageType type) {
+        this.type = type;
+    }
+
+    public Instant getSentAt() {
+        return sentAt;
+    }
+
+    public void setSentAt(Instant sentAt) {
+        this.sentAt = sentAt;
+    }
+
+    public Map<String, Boolean> getReadStatuses() {
+        return readStatuses;
+    }
+
+    public void setReadStatuses(Map<String, Boolean> readStatuses) {
+        this.readStatuses = readStatuses;
+    }
+
+    public String getQuotedMessageId() {
+        return quotedMessageId;
+    }
+
+    public void setQuotedMessageId(String quotedMessageId) {
+        this.quotedMessageId = quotedMessageId;
+    }
 }
