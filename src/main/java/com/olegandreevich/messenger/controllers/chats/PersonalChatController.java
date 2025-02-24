@@ -1,7 +1,7 @@
 package com.olegandreevich.messenger.controllers.chats;
 
 import com.olegandreevich.messenger.entities.chats.PersonalChat;
-import com.olegandreevich.messenger.entities.dto.ParticipantInfo;
+import com.olegandreevich.messenger.entities.dto.chats.ParticipantInfo;
 import com.olegandreevich.messenger.servicies.chats.PersonalChatService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

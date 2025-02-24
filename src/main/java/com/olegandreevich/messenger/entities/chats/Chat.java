@@ -1,6 +1,6 @@
 package com.olegandreevich.messenger.entities.chats;
 
-import com.olegandreevich.messenger.entities.dto.ParticipantInfo;
+import com.olegandreevich.messenger.entities.dto.chats.ParticipantInfo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,4 +18,28 @@ public abstract class Chat {
     public abstract List<ParticipantInfo> getParticipants();
     public abstract void addParticipant(ParticipantInfo participant);
     public abstract void removeParticipant(ParticipantInfo participant);
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

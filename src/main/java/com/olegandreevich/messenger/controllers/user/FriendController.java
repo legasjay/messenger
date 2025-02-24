@@ -4,6 +4,7 @@ import com.olegandreevich.messenger.entities.user.Friend;
 import com.olegandreevich.messenger.entities.user.MyUser;
 import com.olegandreevich.messenger.servicies.user.FriendService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -11,10 +12,14 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/friends")
-@RequiredArgsConstructor
 public class FriendController {
 
     private final FriendService friendService;
+
+    @Autowired
+    public FriendController(FriendService friendService) {
+        this.friendService = friendService;
+    }
 
     /** * Отправка запроса на добавление в друзья */
     @PostMapping("/{friendId}")

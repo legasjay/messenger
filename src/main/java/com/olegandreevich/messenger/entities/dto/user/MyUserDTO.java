@@ -1,9 +1,5 @@
-package com.olegandreevich.messenger.entities.dto;
+package com.olegandreevich.messenger.entities.dto.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.olegandreevich.messenger.entities.user.Profile;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
