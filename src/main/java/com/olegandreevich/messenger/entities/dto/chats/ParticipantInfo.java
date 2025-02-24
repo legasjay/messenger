@@ -1,7 +1,6 @@
-package com.olegandreevich.messenger.entities.dto;
+package com.olegandreevich.messenger.entities.dto.chats;
 
 import lombok.Data;
-import org.bson.types.ObjectId;
 
 @Data
 public class ParticipantInfo {

@@ -6,6 +6,7 @@ import com.olegandreevich.messenger.entities.user.MyUser;
 import com.olegandreevich.messenger.repositories.user.FriendRepository;
 import com.olegandreevich.messenger.repositories.user.MyUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -13,11 +14,16 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
 
 @Service
-@RequiredArgsConstructor
 public class FriendService {
 
     private final FriendRepository friendRepository;
     private final MyUserRepository userRepository;
+
+    @Autowired
+    public FriendService(FriendRepository friendRepository, MyUserRepository userRepository) {
+        this.friendRepository = friendRepository;
+        this.userRepository = userRepository;
+    }
 
     /** * Отправка запроса на добавление в друзья */
     public Mono<Friend> sendFriendRequest(String userId, String friendId) {
