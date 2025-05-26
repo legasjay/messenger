@@ -18,7 +18,7 @@ public class TemporarySecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder bCryptPasswordEncoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

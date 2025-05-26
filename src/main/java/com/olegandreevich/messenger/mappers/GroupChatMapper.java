@@ -1,7 +1,7 @@
 package com.olegandreevich.messenger.mappers;
 
 import com.olegandreevich.messenger.entities.chats.GroupChat;
-import com.olegandreevich.messenger.entities.dto.chats.GroupChatDto;
+import com.olegandreevich.messenger.dto.chats.GroupChatDto;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;

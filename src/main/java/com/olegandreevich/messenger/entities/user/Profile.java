@@ -21,6 +21,19 @@ public class Profile {
 
     private String userId; // ID пользователя, которому принадлежит профиль
 
+    public Profile(String id, String firstName, String lastName, String birthDate, byte[] avatar, String description, String userId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.avatar = avatar;
+        this.description = description;
+        this.userId = userId;
+    }
+
+    public Profile(){}
+
+
     public String getId() {
         return id;
     }

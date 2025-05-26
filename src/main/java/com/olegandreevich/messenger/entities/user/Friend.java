@@ -17,6 +17,17 @@ public class Friend {
 
     // Конструкторы, геттеры и сеттеры
 
+
+    public Friend(String id, String userId, String friendId, FriendStatus status, LocalDateTime requestedAt) {
+        this.id = id;
+        this.userId = userId;
+        this.friendId = friendId;
+        this.status = status;
+        this.requestedAt = requestedAt;
+    }
+
+    public Friend(){}
+
     public String getId() {
         return id;
     }

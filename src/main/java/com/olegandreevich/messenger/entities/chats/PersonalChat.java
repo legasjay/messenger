@@ -1,6 +1,6 @@
 package com.olegandreevich.messenger.entities.chats;
 
-import com.olegandreevich.messenger.entities.dto.chats.ParticipantInfo;
+import com.olegandreevich.messenger.dto.chats.ParticipantInfo;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
