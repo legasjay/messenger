@@ -1,7 +1,7 @@
 package com.olegandreevich.messenger.servicies.chats;
 
 import com.olegandreevich.messenger.entities.chats.PersonalChat;
-import com.olegandreevich.messenger.entities.dto.chats.ParticipantInfo;
+import com.olegandreevich.messenger.dto.chats.ParticipantInfo;
 import com.olegandreevich.messenger.repositories.chats.PersonalChatRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

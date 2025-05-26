@@ -1,4 +1,4 @@
-package com.olegandreevich.messenger.entities.dto.user;
+package com.olegandreevich.messenger.dto.user;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 

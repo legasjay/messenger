@@ -1,4 +1,4 @@
-package com.olegandreevich.messenger.entities.dto.user;
+package com.olegandreevich.messenger.dto.user;
 
 import com.olegandreevich.messenger.entities.enums.FriendStatus;
 

@@ -1,4 +1,4 @@
-package com.olegandreevich.messenger.entities.dto.chats;
+package com.olegandreevich.messenger.dto.chats;
 
 import lombok.Data;
 
